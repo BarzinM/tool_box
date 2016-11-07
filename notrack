@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+if [ "$1" == "--help" ] || [ "$1" == "-h" ] ; then
+	echo "Usage:"
+	echo "$ $0 file_name"
+	echo "Stops git from tracking local changes to a file."
+	echo ""
+	echo "$ $0 -u file_name"
+	echo "Starts git tracking local changes to a file again."
+	echo ""
+	echo "$ $0 -l"
+	echo "List all the files that are not being tracked locally."	
+elif [ "$1" == "-u" ] ; then
+	git update-index --no-assume-unchanged $2
+elif [ "$1" == "-l" ] ; then
+	git ls-files -v | grep '^h '
+else
+ 	git update-index --assume-unchanged $1
+	echo "Local changes to $1 will be ignored."
+fi
